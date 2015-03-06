@@ -24,7 +24,8 @@ public class App
 		} else {
 		mongoClient = new MongoClient(new MongoClientURI(args[0]));
 		}
-		// get handle to the "mydb" database
+		// same as : use mydb 
+		//here is the name of DB
 		DB db = mongoClient.getDB("mydb");
 		// get a list of the collections in this database and print them out
 		Set<String> collectionNames = db.getCollectionNames();
@@ -33,13 +34,15 @@ public class App
 		}
 		
 		
-		// get a handle to the "test" collection
+		//the drop and same as: db.test.drop()
 		DBCollection collection = db.getCollection("test");
 		// drop all the data in it
 		collection.drop();
 	
 		
 		// make a document and insert it
+		//db.products.insert( { item: "card", qty: 15 } )
+		
 		BasicDBObject doc = new BasicDBObject("name", "MongoDB")
 		.append("type", "database")
 		.append("count", 1)
@@ -54,6 +57,10 @@ public class App
 		documents.add(new BasicDBObject().append("i", i));
 		}
 		collection.insert(documents);
+		
+		
+		
+		//same as db.test.count  -- note test is our collection
 		System.out.println("total # of documents after inserting 100 small ones (should be 101) " + collection.getCount());
 		// lets get all the documents in the collection and print them out
 		DBCursor cursor = collection.find();
